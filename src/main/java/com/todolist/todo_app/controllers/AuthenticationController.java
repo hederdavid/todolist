@@ -3,6 +3,7 @@ package com.todolist.todo_app.controllers;
 import com.todolist.todo_app.domain.user.AuthenticationDTO;
 import com.todolist.todo_app.domain.user.RegisterDTO;
 import com.todolist.todo_app.domain.user.User;
+import com.todolist.todo_app.infra.security.TokenService;
 import com.todolist.todo_app.repositories.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,12 @@ public class AuthenticationController {
 
     private final UserRepository userRepository;
 
-    public AuthenticationController(AuthenticationManager authenticationManager, UserRepository userRepository) {
+    private final TokenService tokenService;
+
+    public AuthenticationController(AuthenticationManager authenticationManager, UserRepository userRepository, TokenService tokenService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
+        this.tokenService = tokenService;
     }
 
 
@@ -37,6 +41,7 @@ public class AuthenticationController {
         UsernamePasswordAuthenticationToken usernamePassword = new UsernamePasswordAuthenticationToken(data.username(),
                 data.password());
         Authentication authenticate = this.authenticationManager.authenticate(usernamePassword);
+        String token = tokenService.generateToken( (User) authenticate.getPrincipal());
         return ResponseEntity.ok().build();
     }
 
