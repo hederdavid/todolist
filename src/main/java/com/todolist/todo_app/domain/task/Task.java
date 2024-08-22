@@ -1,5 +1,6 @@
-package com.todolist.todo_app.entity;
+package com.todolist.todo_app.domain.task;
 
+import com.todolist.todo_app.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Table(name = "tasks")
 @Entity(name = "tasks")
 public class Task {
 
