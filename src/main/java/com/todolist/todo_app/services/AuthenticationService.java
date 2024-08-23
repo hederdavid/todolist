@@ -1,4 +1,4 @@
-package com.todolist.todo_app.services.authentication;
+package com.todolist.todo_app.services;
 
 import com.todolist.todo_app.domain.user.AuthenticationDTO;
 import com.todolist.todo_app.domain.user.LoginResponseDTO;

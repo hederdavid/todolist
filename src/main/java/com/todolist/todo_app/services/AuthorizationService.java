@@ -1,4 +1,4 @@
-package com.todolist.todo_app.services.authorization;
+package com.todolist.todo_app.services;
 
 import com.todolist.todo_app.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;

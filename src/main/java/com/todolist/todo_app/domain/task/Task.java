@@ -2,13 +2,11 @@ package com.todolist.todo_app.domain.task;
 
 import com.todolist.todo_app.domain.user.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import jakarta.validation.Valid;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -20,8 +18,8 @@ import java.time.LocalDateTime;
 public class Task {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false)
     private String title;
@@ -38,5 +36,16 @@ public class Task {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    public Task(CreateTaskDTO task, User user) {
+        this.title = task.title();
+        this.description = task.description();
+        this.createdAt = LocalDateTime.now();
+        this.dueDate = task.dueDate();
+        this.completed = false;
+        this.user = user;
+    }
+
+
 }
 

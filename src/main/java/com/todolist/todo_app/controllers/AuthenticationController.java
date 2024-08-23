@@ -3,7 +3,7 @@ package com.todolist.todo_app.controllers;
 import com.todolist.todo_app.domain.user.AuthenticationDTO;
 import com.todolist.todo_app.domain.user.LoginResponseDTO;
 import com.todolist.todo_app.domain.user.RegisterDTO;
-import com.todolist.todo_app.services.authentication.AuthenticationService;
+import com.todolist.todo_app.services.AuthenticationService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
