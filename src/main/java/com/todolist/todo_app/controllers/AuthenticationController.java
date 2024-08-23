@@ -1,6 +1,7 @@
 package com.todolist.todo_app.controllers;
 
 import com.todolist.todo_app.domain.user.AuthenticationDTO;
+import com.todolist.todo_app.domain.user.LoginResponseDTO;
 import com.todolist.todo_app.domain.user.RegisterDTO;
 import com.todolist.todo_app.domain.user.User;
 import com.todolist.todo_app.infra.security.TokenService;
@@ -42,7 +43,7 @@ public class AuthenticationController {
                 data.password());
         Authentication authenticate = this.authenticationManager.authenticate(usernamePassword);
         String token = tokenService.generateToken( (User) authenticate.getPrincipal());
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")
