@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class TaskService {
@@ -32,4 +34,15 @@ public class TaskService {
         taskEntity = taskRepository.save(taskEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body(taskEntity);
     }
+
+    public ResponseEntity<List<Task>> getAllTasksTodo(UUID userId) {
+        List<Task> tasks = taskRepository.findByUserIdAndCompletedFalse(userId);
+
+        if (tasks.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(tasks);
+    }
+
 }

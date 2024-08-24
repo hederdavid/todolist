@@ -1,5 +1,6 @@
 package com.todolist.todo_app.domain.task;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.todolist.todo_app.domain.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
@@ -33,8 +34,9 @@ public class Task {
 
     private boolean completed;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnoreProperties({"tasks"})
     private User user;
 
     public Task(CreateTaskDTO task, User user) {

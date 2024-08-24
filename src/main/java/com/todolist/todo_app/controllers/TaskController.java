@@ -8,6 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
@@ -18,10 +21,15 @@ public class TaskController {
         this.taskService = taskService;
     }
 
+    @GetMapping("/todo/{id}")
+    public ResponseEntity<List<Task>> getUserTodoTasks(@PathVariable UUID id) {
+        System.out.println("entrou");
+        return taskService.getAllTasksTodo(id);
+    }
+
     @Transactional
     @PostMapping("/create")
     public ResponseEntity<Task> create(@RequestBody @Valid CreateTaskDTO task) {
-        System.out.println("entrou");
         return taskService.createTask(task);
     }
 }
