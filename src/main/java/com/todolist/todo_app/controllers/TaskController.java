@@ -2,6 +2,7 @@ package com.todolist.todo_app.controllers;
 
 import com.todolist.todo_app.domain.task.CreateTaskDTO;
 import com.todolist.todo_app.domain.task.Task;
+import com.todolist.todo_app.domain.task.TaskDetails;
 import com.todolist.todo_app.services.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +23,13 @@ public class TaskController {
     }
 
     @GetMapping("/todo/{id}")
-    public ResponseEntity<List<Task>> getUserTodoTasks(@PathVariable UUID id) {
-        System.out.println("entrou");
+    public ResponseEntity<List<TaskDetails>> getUserTodoTasks(@PathVariable UUID id) {
         return taskService.getAllTasksTodo(id);
     }
 
     @Transactional
     @PostMapping("/create")
-    public ResponseEntity<Task> create(@RequestBody @Valid CreateTaskDTO task) {
+    public ResponseEntity<TaskDetails> create(@RequestBody @Valid CreateTaskDTO task) {
         return taskService.createTask(task);
     }
 }

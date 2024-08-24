@@ -36,7 +36,6 @@ public class Task {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnoreProperties({"tasks"})
     private User user;
 
     public Task(CreateTaskDTO task, User user) {
