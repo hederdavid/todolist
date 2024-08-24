@@ -1,9 +1,7 @@
 package com.todolist.todo_app.domain.task;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.todolist.todo_app.domain.user.User;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import lombok.*;
 
 import java.time.LocalDateTime;

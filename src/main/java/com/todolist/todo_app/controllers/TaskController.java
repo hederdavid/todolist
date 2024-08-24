@@ -1,7 +1,6 @@
 package com.todolist.todo_app.controllers;
 
 import com.todolist.todo_app.domain.task.CreateTaskDTO;
-import com.todolist.todo_app.domain.task.Task;
 import com.todolist.todo_app.domain.task.TaskDetails;
 import com.todolist.todo_app.services.TaskService;
 import jakarta.validation.Valid;

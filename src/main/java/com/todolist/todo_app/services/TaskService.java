@@ -8,7 +8,6 @@ import com.todolist.todo_app.exceptions.ResourceNotFoundException;
 import com.todolist.todo_app.repositories.TaskRepository;
 import com.todolist.todo_app.repositories.UserRepository;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
