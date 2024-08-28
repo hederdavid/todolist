@@ -2,7 +2,7 @@ package com.todolist.todo_app.services;
 
 import com.todolist.todo_app.domain.task.CreateTaskDTO;
 import com.todolist.todo_app.domain.task.Task;
-import com.todolist.todo_app.domain.task.TaskDetails;
+import com.todolist.todo_app.domain.task.TaskDetailsDTO;
 import com.todolist.todo_app.domain.user.User;
 import com.todolist.todo_app.exceptions.ResourceNotFoundException;
 import com.todolist.todo_app.repositories.TaskRepository;
@@ -28,7 +28,7 @@ public class TaskService {
         this.userRepository = userRepository;
     }
 
-    public ResponseEntity<TaskDetails> createTask(@Valid CreateTaskDTO task) {
+    public ResponseEntity<TaskDetailsDTO> createTask(@Valid CreateTaskDTO task) {
         Optional<User> optionalUser = userRepository.findById(task.userId());
         User user = optionalUser.orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
@@ -40,21 +40,43 @@ public class TaskService {
                 .buildAndExpand(taskEntity.getId())
                 .toUri();
 
-        return ResponseEntity.created(location).body(new TaskDetails(taskEntity));
+        return ResponseEntity.created(location).body(new TaskDetailsDTO(taskEntity));
     }
 
-    public ResponseEntity<List<TaskDetails>> getAllTasksTodo(UUID userId) {
+    public ResponseEntity<List<TaskDetailsDTO>> getAllTasksTodo(UUID userId) {
         List<Task> tasks = taskRepository.findByUserIdAndCompletedFalse(userId);
 
         if (tasks.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
 
-        List<TaskDetails> tasksDetails = tasks.stream()
-                .map(TaskDetails::new)
+        List<TaskDetailsDTO> tasksDetails = tasks.stream()
+                .map(TaskDetailsDTO::new)
                 .toList();
 
         return ResponseEntity.ok(tasksDetails);
+    }
+
+    public ResponseEntity<List<TaskDetailsDTO>> getAllTasksCompleted(UUID userId) {
+        List<Task> tasks = taskRepository.findByUserIdAndCompletedTrue(userId);
+
+        if (tasks.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        List<TaskDetailsDTO> tasksDetails = tasks.stream()
+                .map(TaskDetailsDTO::new)
+                .toList();
+
+        return ResponseEntity.ok(tasksDetails);
+
+    }
+
+    public ResponseEntity<Void> deleteTask(UUID id) {
+        Optional<Task> optionalTask = taskRepository.findById(id);
+        taskRepository.delete(optionalTask.orElseThrow(() -> new ResourceNotFoundException("Task not found")));
+
+        return ResponseEntity.noContent().build();
     }
 
 }

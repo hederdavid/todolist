@@ -3,7 +3,7 @@ package com.todolist.todo_app.domain.task;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record TaskDetails(
+public record TaskDetailsDTO(
         String title,
         String description,
         LocalDateTime createdAt,
@@ -12,7 +12,7 @@ public record TaskDetails(
         UUID userId
 
 ) {
-    public TaskDetails(Task taskEntity) {
+    public TaskDetailsDTO(Task taskEntity) {
         this(
                 taskEntity.getTitle(),
                 taskEntity.getDescription(),

@@ -1,7 +1,7 @@
 package com.todolist.todo_app.controllers;
 
 import com.todolist.todo_app.domain.task.CreateTaskDTO;
-import com.todolist.todo_app.domain.task.TaskDetails;
+import com.todolist.todo_app.domain.task.TaskDetailsDTO;
 import com.todolist.todo_app.services.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +22,25 @@ public class TaskController {
     }
 
     @GetMapping("/todo/{id}")
-    public ResponseEntity<List<TaskDetails>> getUserTodoTasks(@PathVariable UUID id) {
+    public ResponseEntity<List<TaskDetailsDTO>> getUserTodoTasks(@PathVariable UUID id) {
         return taskService.getAllTasksTodo(id);
+    }
+
+    @GetMapping("/completed/{id}")
+    public ResponseEntity<List<TaskDetailsDTO>> getUserCompletedTasks(@PathVariable UUID id) {
+        return taskService.getAllTasksCompleted(id);
     }
 
     @Transactional
     @PostMapping("/create")
-    public ResponseEntity<TaskDetails> create(@RequestBody @Valid CreateTaskDTO task) {
+    public ResponseEntity<TaskDetailsDTO> create(@RequestBody @Valid CreateTaskDTO task) {
         return taskService.createTask(task);
     }
+
+    @Transactional
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> delete(@RequestBody UUID id) {
+        return taskService.deleteTask(id);
+    }
+
 }

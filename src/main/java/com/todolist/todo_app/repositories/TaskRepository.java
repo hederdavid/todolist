@@ -8,4 +8,7 @@ import java.util.UUID;
 
 public interface TaskRepository extends JpaRepository<Task, UUID> {
     List<Task> findByUserIdAndCompletedFalse(UUID userId);
+
+    List<Task> findByUserIdAndCompletedTrue(UUID userId);
+
 }
