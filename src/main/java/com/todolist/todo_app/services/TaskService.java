@@ -79,4 +79,14 @@ public class TaskService {
         return ResponseEntity.noContent().build();
     }
 
+    public ResponseEntity<TaskDetailsDTO> updateTask(UUID id, @Valid CreateTaskDTO task) {
+        Optional<Task> optionalTask = taskRepository.findById(id);
+        if (optionalTask.isPresent()) {
+            optionalTask.get().setTitle(task.title());
+            optionalTask.get().setDescription(task.description());
+            optionalTask.get().setDueDate(task.dueDate());
+            return ResponseEntity.ok(new TaskDetailsDTO(optionalTask.get()));
+        }
+        throw new ResourceNotFoundException("Task not found");
+    }
 }

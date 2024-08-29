@@ -31,16 +31,24 @@ public class TaskController {
         return taskService.getAllTasksCompleted(id);
     }
 
-    @Transactional
     @PostMapping("/create")
+    @Transactional
     public ResponseEntity<TaskDetailsDTO> create(@RequestBody @Valid CreateTaskDTO task) {
         return taskService.createTask(task);
     }
 
+    @DeleteMapping("/delete/{id}")
     @Transactional
-    @DeleteMapping("/delete")
-    public ResponseEntity<Void> delete(@RequestBody UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
         return taskService.deleteTask(id);
     }
+
+    @PutMapping("/update/{id}")
+    @Transactional
+    public ResponseEntity<TaskDetailsDTO> update (@PathVariable UUID id, @RequestBody @Valid CreateTaskDTO task) {
+        return taskService.updateTask(id, task);
+    }
+
+
 
 }
